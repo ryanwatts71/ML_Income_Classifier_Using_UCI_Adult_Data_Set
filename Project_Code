@@ -1,0 +1,561 @@
+##################################################
+# ECON 418-518 Homework 3
+# Ryan Watts
+# The University of Arizona
+# rmwatts@arizona.edu 
+# 4 December 2024
+###################################################
+
+
+#####################
+# Preliminaries
+#####################
+
+# Clear environment, console, and plot pane
+rm(list = ls())
+cat("\014")
+graphics.off()
+
+# Turn off scientific notation
+options(scipen = 999)
+
+# Load packages
+pacman::p_load(data.table)
+
+# Set sead
+set.seed(418518)
+
+
+#####################
+# Problem 1
+#####################
+
+
+#################
+# Question (i)
+#################
+
+#data <- HW3_Data
+#> data$fnlwgt <- NULL
+#> data$occupation <- NULL
+#> data$relationship <- NULL
+#> data$`capital-gain`<- NULL
+#> data$`capital-loss` <- NULL
+#> data$`educational-num` <- NULL
+
+#################
+# Question (ii)
+#################
+
+##############
+# Part (a)
+##############
+
+#data$income <- ifelse(data$income == ">50K" | data$income == ">50K.", 1, 0)
+
+##############
+# Part (b)
+##############
+
+#data$race <- ifelse(data$race == "White" | data$income == "else", 1, 0)
+
+##############
+# Part (c)
+##############
+
+#data$gender <- ifelse(data$gender == "Male" | data$gender == "else", 1, 0)
+
+##############
+# Part (d)
+##############
+
+#data$workclass <- ifelse(data$workclass == "Private" | data$workclass == "else", 1, 0)
+
+##############
+# Part (e)
+##############
+
+#data$`native-country` <- ifelse(data$`native-country` == "United-States" | data$`native-country` == "else", 1, 0)
+
+##############
+# Part (f)
+##############
+
+#data$`marital-status` <- ifelse(data$`marital-status` == "Married-civ-spouse" | data$`marital-status` == "else", 1, 0)
+
+##############
+# Part (g)
+##############
+
+#data$education <- ifelse(data$education %in% c("Bachelors", "Masters", "Doctorate"), 1, 0)
+
+##############
+# Part (h)
+##############
+
+#data$age_sq <- (data$age * data$age)
+
+##############
+# Part (i)
+##############
+
+#data$age <- scale(data$age)
+# data$age_sq <- scale(data$age_sq)
+# data$`hours-per-week` <- scale(data$`hours-per-week`)
+
+#################
+# Question (iii)
+#################
+
+##############
+# Part (a)
+##############
+
+#proportion_high_income <- sum(data$income == 1) / length(data$income)
+#print(proportion_high_income)
+  #[1] 0.2392818
+
+##############
+# Part (b)
+##############
+
+#proportion_private_sector <- sum(data$workclass == 1) / length(data$workclass)
+# print(proportion_private_sector)
+  #[1] 0.6941976
+
+##############
+# Part (c)
+##############
+
+#proportion_married <- sum(data$`marital-status` == 1) / length(data$`marital-status`)
+# print(proportion_married)
+  #[1] 0.4581917
+
+##############
+# Part (d)
+##############
+
+#proportion_female <- sum(data$gender == 0) / length(data$gender)
+# print(proportion_female)
+  #[1] 0.331518
+
+##############
+# Part (e)
+##############
+
+#nas_by_column <- colSums(is.na(data))
+# print(nas_by_column)
+#  workclass      education marital-status 
+#  0              0              0              0 
+#  race         gender                native-country 
+#  0              0              0              0 
+#  income                
+#  0              0 
+
+##############
+# Part (f)
+##############
+
+#data$income <- as.factor(data$income)
+#str(data$income)
+  #Factor w/ 2 levels "0","1": 1 1 2 2 1 1 1 2 1 1 ...
+
+#################
+# Question (iv)
+#################
+
+##############
+# Part (a)
+##############
+
+#train_size <- floor(0.70 * nrow(data))
+#print(train_size)
+#[1] 34189
+
+#test_size <- floor(0.3 * nrow(data))
+# print(test_size)
+#[1] 14652
+
+##############
+# Part (b)
+##############
+
+#train_indices <- shuffled_indices[1:train_size]
+#test_indices <- shuffled_indices[(train_size + 1):nrow(data)]
+
+
+##############
+# Part (c)
+##############
+
+#dt_train <- data[1:train_size, ]
+#t_test <- data[(train_size + 1):nrow(data), ]
+
+#################
+# Question (v)
+#################
+
+pacman::p_load(ISLR2, glmnet, boot, data.table, ggplot2)
+
+##############
+# Part (a)
+##############
+
+
+
+##############
+# Part (b)
+##############
+
+#install.packages("caret")
+#library(caret)
+
+#creating lambda values grid
+  # lambda_grid <- seq(10^5, 10^-2, length = 50)
+
+#k-fold cross-val (training controls)
+ # ctrl <- trainControl(method = "cv", number = 10)
+
+#lasso regression model
+    
+
+Y_train <- as.numeric(dt_train$income)
+ # Create feature matrix
+  # X_train <- model.matrix(dt_train$income ~ ., dt_train)[, -1]
+ 
+  # # Grid of lambda values
+  # lambda_grid <- 10^seq(10, -2, length = 100)
+ 
+   # Run lasso regression
+  # reg_lasso <- glmnet(X_train, Y_train, alpha = 1, lambda = lambda_grid)
+ 
+   # Obtain lasso regression coefficients for the 1st value of lambda (lambda = 10^10)
+  # coef(reg_lasso)[, 1]
+
+##############
+# Part (c)
+##############
+
+# Find the value of lambda that gives the highest classification accuracy
+# best_lambda <- cv_model$lambda.min
+ 
+   # Get the classification accuracy at the best lambda
+  # best_accuracy <- 1 - cv_model$cvm[cv_model$lambda == best_lambda]
+ 
+  # # Print the results
+  # cat("The value of lambda that gives the highest classification accuracy is:", best_lambda, "\n")
+#The value of lambda that gives the highest classification accuracy is: 0.0001220374 
+# cat("The classification accuracy at the best lambda is:", best_accuracy, "\n")
+#The classification accuracy at the best lambda is: 0.8703654 
+
+##############
+# Part (d)
+##############
+
+# Perform 10-fold cross-validation
+# cv <- cv.glmnet(X_train, Y_train, alpha = 1, nfolds = 10)
+ 
+  # best_lambda <- cv$lambda.min
+
+  # best_coefficients <- coef(cv$finalModel, s = best_lambda)
+ 
+  # print(best_coefficients)
+
+#all explanatory variables had coefficients approximately 0 or as 0
+
+##############
+# Part (e)
+##############
+
+#non_zero_vars <- names(which(coef(reg_lasso)[, 1] != 0))
+#non_zero_vars <- non_zero_vars[non_zero_vars != "(Intercept)"]
+#print(non_zero_vars)
+
+#incomplete data so can not fit models, unsure of mistakes that lead to this 
+
+#################
+# Question (vi)
+#################
+
+##############
+# Part (a)
+##############
+
+##############
+# Part (b)
+##############
+
+> ctrl <- trainControl(
+  +     method = "cv",
+  +     number = 5,
+  +     verboseIter = TRUE
+  + )
+> 
+  > # Model 1: 100 trees, 2 random features
+  > rf_model_1 <- train(
+    +     income ~ .,  
+    +     data = dt_train,  
+    +     method = "rf",
+    +     ntree = 100,
+    +     tuneGrid = data.frame(mtry = 2),
+    +     trControl = ctrl
+    + )
++ Fold1: mtry=2 
+- Fold1: mtry=2 
++ Fold2: mtry=2 
+- Fold2: mtry=2 
++ Fold3: mtry=2 
+- Fold3: mtry=2 
++ Fold4: mtry=2 
+- Fold4: mtry=2 
++ Fold5: mtry=2 
+- Fold5: mtry=2 
+Aggregating results
+Fitting final model on full training set
+> 
+  > # Model 2: 200 trees, 5 random features
+  > rf_model_2 <- train(
+    +     income ~ .,
+    +     data = dt_train,
+    +     method = "rf",
+    +     ntree = 200,
+    +     tuneGrid = data.frame(mtry = 5),
+    +     trControl = ctrl
+    + )
++ Fold1: mtry=5 
+- Fold1: mtry=5 
++ Fold2: mtry=5 
+- Fold2: mtry=5 
++ Fold3: mtry=5 
+- Fold3: mtry=5 
++ Fold4: mtry=5 
+- Fold4: mtry=5 
++ Fold5: mtry=5 
+- Fold5: mtry=5 
+Aggregating results
+Fitting final model on full training set
+> 
+  > # Model 3: 300 trees, 9 random features
+  > rf_model_3 <- train(
+    +     income ~ .,
+    +     data = dt_train,
+    +     method = "rf",
+    +     ntree = 300,
+    +     tuneGrid = data.frame(mtry = 9),
+    +     trControl = ctrl
+    + )
++ Fold1: mtry=9 
+- Fold1: mtry=9 
++ Fold2: mtry=9 
+- Fold2: mtry=9 
++ Fold3: mtry=9 
+- Fold3: mtry=9 
++ Fold4: mtry=9 
+- Fold4: mtry=9 
++ Fold5: mtry=9 
+- Fold5: mtry=9 
+Aggregating results
+Fitting final model on full training set
+> 
+  > print(rf_model_1)
+Random Forest 
+
+34189 samples
+9 predictor
+2 classes: '0', '1' 
+
+No pre-processing
+Resampling: Cross-Validated (5 fold) 
+Summary of sample sizes: 27351, 27351, 27351, 27352, 27351 
+Resampling results:
+  
+  Accuracy   Kappa    
+0.8164908  0.4046031
+
+Tuning parameter 'mtry' was held constant at a value of 2
+> print(rf_model_2)
+Random Forest 
+
+34189 samples
+9 predictor
+2 classes: '0', '1' 
+
+No pre-processing
+Resampling: Cross-Validated (5 fold) 
+Summary of sample sizes: 27351, 27352, 27351, 27351, 27351 
+Resampling results:
+  
+  Accuracy   Kappa    
+0.7975373  0.3918667
+
+Tuning parameter 'mtry' was held constant at a value of 5
+> print(rf_model_3)
+Random Forest 
+
+34189 samples
+9 predictor
+2 classes: '0', '1' 
+
+No pre-processing
+Resampling: Cross-Validated (5 fold) 
+Summary of sample sizes: 27351, 27351, 27351, 27352, 27351 
+Resampling results:
+  
+  Accuracy  Kappa    
+0.791307  0.3760992
+
+Tuning parameter 'mtry' was held constant at a value of 9
+> 
+  > # Optional: Compare model results side by side
+  > results <- resamples(list(
+    +     RF_100_trees = rf_model_1,
+    +     RF_200_trees = rf_model_2,
+    +     RF_300_trees = rf_model_3
+    + ))
+> summary(results)
+
+Call:
+  summary.resamples(object = results)
+
+Models: RF_100_trees, RF_200_trees, RF_300_trees 
+Number of resamples: 5 
+
+Accuracy 
+Min.   1st Qu.    Median      Mean   3rd Qu.
+RF_100_trees 0.8126645 0.8144194 0.8145657 0.8164908 0.8186604
+RF_200_trees 0.7937994 0.7957005 0.7980404 0.7975373 0.7992103
+RF_300_trees 0.7866023 0.7901433 0.7910208 0.7913070 0.7910208
+Max. NA's
+RF_100_trees 0.8221442    0
+RF_200_trees 0.8009361    0
+RF_300_trees 0.7977479    0
+
+#omitted the kappa data
+
+> 
+  > # Visualize model comparison
+  > dotplot(results)
+
+##############
+# Part (c)
+##############
+
+# model 1 gives the highest classification accuracy 
+
+##############
+# Part (d)
+##############
+
+##############
+# Part (e)
+##############
+
+# Visualize model comparison
+> dotplot(results)
+> # Make predictions using the best random forest model
+  > # Assuming rf_model_3 is our best-performing model
+  > predictions <- predict(rf_model_3, newdata = dt_train)
+> 
+  > # Create confusion matrix
+  > conf_matrix <- confusionMatrix(
+    +     data = predictions, 
+    +     reference = dt_train$income
+    + )
+> 
+  > # Print confusion matrix
+  > print(conf_matrix)
+Confusion Matrix and Statistics
+
+Reference
+Prediction     0     1
+0 24900  2977
+1  1160  5152
+
+Accuracy : 0.879                
+95% CI : (0.8755, 0.8824)     
+No Information Rate : 0.7622               
+P-Value [Acc > NIR] : < 0.00000000000000022
+
+Kappa : 0.6384               
+
+Mcnemar's Test P-Value : < 0.00000000000000022
+                                               
+            Sensitivity : 0.9555               
+            Specificity : 0.6338               
+         Pos Pred Value : 0.8932               
+         Neg Pred Value : 0.8162               
+             Prevalence : 0.7622               
+         Detection Rate : 0.7283               
+   Detection Prevalence : 0.8154               
+      Balanced Accuracy : 0.7946               
+                                               
+       'Positive' Class : 0                    
+                                               
+> 
+> # matrix values
+> matrix_values <- conf_matrix$table
+> false_positives <- matrix_values[2,1]  # False Positives
+> false_negatives <- matrix_values[1,2]  # False Negatives
+> 
+> # Print the false positives and teh false negatives
+> cat("Number of False Positives:", false_positives, "\n")
+Number of False Positives: 1160 
+> cat("Number of False Negatives:", false_negatives, "\n")
+Number of False Negatives: 2977 
+> 
+> # proportion of each class in the training data
+> class_proportions <- table(dt_train$income) / nrow(dt_train)
+> print(class_proportions)
+
+        0         1 
+0.7622335 0.2377665 
+> 
+
+
+#################
+# Question (vII)
+#################
+
+# Evaluate rf_model_3 
+> test_predictions_3 <- predict(rf_model_3, newdata = dt_test)
+> test_conf_matrix_3 <- confusionMatrix(
+  +     data = test_predictions_3, 
+  +     reference = dt_test$income
+  + )
+> cat("RF Model 3 (300 trees) Accuracy:", test_conf_matrix_3$overall['Accuracy'], "\n")
+RF Model 3 (300 trees) Accuracy: 0.7965604 
+> 
+  > # Evaluate rf_model_2
+  > test_predictions_2 <- predict(rf_model_2, newdata = dt_test)
+> test_conf_matrix_2 <- confusionMatrix(
+  +     data = test_predictions_2, 
+  +     reference = dt_test$income
+  + )
+> cat("RF Model 2 (200 trees) Accuracy:", test_conf_matrix_2$overall['Accuracy'], "\n")
+RF Model 2 (200 trees) Accuracy: 0.8035897 
+> 
+  > # Evaluate rf_model_1
+  > test_predictions_1 <- predict(rf_model_1, newdata = dt_test)
+> test_conf_matrix_1 <- confusionMatrix(
+  +     data = test_predictions_1, 
+  +     reference = dt_test$income
+  + )
+> cat("RF Model 1 (100 trees) Accuracy:", test_conf_matrix_1$overall['Accuracy'], "\n")
+RF Model 1 (100 trees) Accuracy: 0.8171023 
+> 
+  > #performance metrics
+  > model_list <- list(
+    +     RF_100_trees = test_conf_matrix_1,
+    +     RF_200_trees = test_conf_matrix_2,
+    +     RF_300_trees = test_conf_matrix_3
+    + )
+> 
+  > #performance metrics
+  > performance_summary <- sapply(model_list, function(x) x$overall['Accuracy'])
+> print(performance_summary)
+RF_100_trees.Accuracy RF_200_trees.Accuracy RF_300_trees.Accuracy 
+0.8171023             0.8035897             0.7965604 
+> 
+
+
+
